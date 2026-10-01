@@ -1,6 +1,6 @@
 # Audy: Musical Recommendation and Filtering System based on Artist Metadata Analysis
 
-Audy is a music discovery tool developed for the Object-Oriented Programming course. 
+**Audy** is a music discovery tool developed for the Object-Oriented Programming course. 
 
 The system allows users to start from a song they already know and discover similar music, as well as explore related genres, subgenres, artists, and other musical connections.
 
@@ -17,6 +17,6 @@ The system allows users to start from a song they already know and discover simi
 
 ## Documentation
 
-The Project documentation is available here:
+The project documentation is available here:
 
 [View project documentation](docs/README.md)
