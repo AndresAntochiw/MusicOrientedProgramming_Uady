@@ -17,6 +17,6 @@ The system allows users to start from a song they already know and discover simi
 
 ## Documentation
 
-Project´s documentation is available here:
+The Project documentation is available here:
 
 [View project documentation](docs/README.md)
