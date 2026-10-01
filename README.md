@@ -10,7 +10,7 @@ The system allows users to start from a song they already know and discover simi
 | ------------- | ------------- |
 | **Gil Juárez Joshua Nabil**  | Product Owner  |
 | **Jiménez Hernández Xicoténcatl**  | Scrum Master  |
-| **Antochiw Flores Andrés** | Designer (Leader)  |
+| **Antochiw Flores Andrés** (Leader) | Designer  |
 | **Thibault Raphael Didier Alexandre**  | Designer  |
 | **Couoh Mis Guillermo Moises**  | Designer  |
 | **Medina Uitz Eleazar**  | Designer  |
