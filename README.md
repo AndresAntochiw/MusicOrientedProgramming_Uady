@@ -7,7 +7,7 @@ The system allows users to start from a song they already know and discover simi
 | Team Members  | Roles in the project |
 | ------------- | ------------- |
 | **Gil Juárez Joshua Nabil**  | Product Owner  |
-| **Jiménez Hernández Xicotencatl**  | Scrum Master  |
+| **Jiménez Hernández Xicoténcatl**  | Scrum Master  |
 | **Antochiw Flores Andrés** | Designer (Leader)  |
 | **Thibault Raphael Didier Alexandre**  | Designer  |
 | **Couoh Mis Guillermo Moises**  | Designer  |
