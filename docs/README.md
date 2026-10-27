@@ -138,3 +138,55 @@ This class will use the information obtained from the reference song and other a
 Its function will not be limited to finding similar songs, but rather determining possible exploration paths that allow the user's musical catalog to progressively expand.
 
 The Spotify Web API will initially be considered a source of musical information. The discovery and recommendation logic of the project will remain separated from communication with that API through SpotifyAPIClient.
+
+
+## UML Class Diagram
+
+The following diagram illustrates the relationships and structure of the preliminary classes defined above.
+
+```mermaid
+classDiagram
+    class Track {
+        - String id
+        - String title
+        - String previewUrl
+        - String coverImage
+        - int popularity
+        - Artist artist
+        + getId() String
+        + getTitle() String
+        + getPreviewUrl() String
+        + getCoverImage() String
+        + getPopularity() int
+        + getArtist() Artist
+    }
+
+    class Artist {
+        - String id
+        - String name
+        - List~String~ genres
+        + getId() String
+        + getName() String
+        + getGenres() List~String~
+    }
+
+    class SpotifyAPIClient {
+        - String clientId
+        - String clientSecret
+        - String accessToken
+        + authenticate() void
+        + searchTrack(String query) Track
+        + getArtistInformation(String artistId) Artist
+        + getArtistGenres(String artistId) List~String~
+        + fetchRecommendations(List~String~ seedGenres, int minPop, int maxPop) List~Track~
+    }
+
+    class DiscoveryEngine {
+        - SpotifyAPIClient api
+        + generateRecommendations(Track referenceTrack) List~Track~
+        + generateDiscoveryPath(String sourceTrackName) List~Track~
+    }
+
+    Track --> Artist : contains
+    DiscoveryEngine --> SpotifyAPIClient : uses
+```
