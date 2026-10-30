@@ -190,3 +190,42 @@ classDiagram
     Track --> Artist : contains
     DiscoveryEngine --> SpotifyAPIClient : uses
 ```
+
+# Matriz de Trazabilidad: Requisitos vs Diseño
+
+## Requerimientos Funcionales
+
+| Requerimiento | Componentes | Cobertura | Estado |
+| :--- | :--- | :--- | :--- |
+| **RF-01** | Ninguno | Sin cobertura | Pendiente UI |
+| **RF-02** | DiscoveryEngine, SpotifyAPIClient | Backend | En desarrollo |
+| **RF-03** | DiscoveryEngine, SpotifyAPIClient | Backend | En desarrollo |
+| **RF-04** | Track | Parcial | Pendiente UI |
+| **RF-05** | Track, SpotifyAPIClient | Cubierta | En desarrollo |
+| **RF-06** | Artist, SpotifyAPIClient | Cubierta | En desarrollo |
+| **RF-07** | DiscoveryEngine, SpotifyAPIClient | Cubierta | En desarrollo |
+| **RF-08** | Ninguno | Sin cobertura | Pendiente UI |
+| **RF-09** | Track | Parcial | Pendiente UI |
+| **RF-10** | Ninguno | Sin cobertura | Pendiente UI |
+| **RF-11** | APIClientException | Parcial | Pendiente UI |
+
+## Requerimientos No Funcionales
+
+| Requerimiento | Componentes | Cobertura | Estado |
+| :--- | :--- | :--- | :--- |
+| **RNF-01** | Ninguno | Sin cobertura | Pruebas |
+| **RNF-02** | APIClientException | Parcial | Pendiente UI |
+| **RNF-03** | DiscoveryEngine | Backend | En desarrollo |
+| **RNF-04** | DiscoveryEngine | Cubierta | En desarrollo |
+| **RNF-05** | Clases APIClient | Cubierta | Implementado |
+
+## Explicaciones y análisis de los Requerimientos cubiertos
+
+### Requerimientos cubiertos por el backend
+Los requerimientos de obtención de datos (RF-05, RF-06) se atienden mediante las propiedades de `Track` y `Artist` junto con las llamadas en `SpotifyAPIClient`. La lógica de búsqueda predictiva y filtrado (RF-02, RF-03, RF-07) recae en los métodos de `DiscoveryEngine`. El RNF-04 está garantizado por el atributo `lastKeystrokeTimestamp` que controla el tiempo de tipeo, y el RNF-05 se cumple al modularizar los clientes en `SpotifyAPIClient` y `MusicBrainzAPIClient`.
+
+### Requerimientos con cobertura parcial
+El modelo de datos soporta el RF-04 y RF-09 almacenando la información necesaria en la clase `Track` (como `previewUrl` y `playerUrl`), pero falta la capa de presentación. De igual forma, los errores de conexión (RF-11, RNF-02) son atrapados lógicamente por `APIClientException`, pero carecen de un controlador que muestre las alertas al usuario. El RNF-03 requerirá validaciones específicas dentro de `generateRecommendations` que no se reflejan directamente como atributos estructurales.
+
+### Requerimientos sin cobertura
+El diseño actual omite por completo los componentes visuales e interactivos. El RF-01 (campo de búsqueda), RF-08 (mostrar lista de recomendaciones) y RF-10 (avisos de resultados vacíos y retorno al inicio) no tienen clases asignadas en el patrón MVC. El RNF-01 sobre tiempos de respuesta dependerá de la implementación de red y no se modela en el UML estático.
