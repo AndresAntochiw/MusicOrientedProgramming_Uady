@@ -28,31 +28,57 @@ Develop a tool for music discovery that allows usage of a song known and liked b
 
 This is done with the main objective of providing the user with a way to explore the music space in a way that they might not otherwise be able to.
 
-## Functional Requirements
+## Functional Requirements (Second Delivery Update)
 
 ### RF-01: Search for a song
-The system must allow the user to search up the song via a search browser.
+The system must allow the user to type the name of a song in a search field (Priority: High).
 
-### RF-02: Send API request
-The system must send an API request to Spotify’s API based on the song provided by the user.
+### RF-02: Predictive search suggestions
+The system must display predictive song suggestions while the user types by querying the Spotify API with partial text (Priority: Low).
 
-### RF-03: Receive song metadata
-The system must receive the metadata of the requested song.
+### RF-03: Search execution on Enter
+The system must search the Spotify API upon pressing Enter and display a list of matches (Priority: High).
 
-### RF-04: Utilize artist data
-The system must utilize the "Artist" data for its operations.
+### RF-04: Reference track selection
+The system must allow the user to select a reference song, either from predictive suggestions or from the match list (Priority: High).
 
-### RF-05: Acquire genres and subgenres
-The system must acquire the genres and subgenres linked to the artist of the song.
+### RF-05: Song metadata retrieval
+The system must receive the metadata of the selected reference song, including its popularity score (Priority: High).
 
-### RF-06: Apply popularity filter
-The system must utilize the "popularity" data of the solicited song to utilize an adapted popularity filter.
+### RF-06: Artist metadata acquisition
+The system must acquire the metadata of the artist of the reference song (Priority: High).
 
-### RF-07: Filter and find similar songs
-The system must filter and find similar songs utilizing the parameters outlined, these being genre, subgenre, artist and popularity filter.
+### RF-07: Smart filtering (Genres & Popularity)
+The system must generate a filter using the artist's genres, track genres, and the track's popularity to find similar songs (Priority: High).
 
 ### RF-08: Return recommendations
-The system must return the list of songs found to the user as a recommendation.
+The system must display the generated list of similar recommendations (Priority: High).
+
+### RF-09: Recommendation details
+The system must display details of the chosen recommendation: metadata and an external player link if available (Priority: Medium).
+
+### RF-10: Null or empty results handling
+The system must notify when there are no suggestions, matches, or recommendations, allowing the user to return home (Priority: Medium).
+
+### RF-11: Error handling and recovery
+The system must notify when an error occurs at any step and allow retrying or returning home (Priority: High).
+
+## Non-Functional Requirements (RNF)
+
+### RNF-01: Response time thresholds
+Predictive suggestions appear in $\le 1\text{ s}$ and recommendations in $\le 5\text{ s}$ under normal connections (Priority: High).
+
+### RNF-02: Fault tolerance
+If an API fails or internet connection is lost, the system does not crash and displays a message allowing the user to retry or return home (Priority: High).
+
+### RNF-03: Quality of results
+The recommendation list must not show the reference song, must not show duplicate songs, and must show at least 10 results when available (Priority: High).
+
+### RNF-04: Predictive debounce
+The predictive search waits $\ge 300\text{ ms}$ after the last keystroke before querying and respects API rate limits (Priority: Medium).
+
+### RNF-05: Modular API architecture
+Access to each external API is isolated within its own dedicated class or module (Priority: High).
 
 ## Preliminary System Flow
 
@@ -60,105 +86,37 @@ The following diagram represents a preliminary version of how the system is expe
 
 ![Preliminary System Flow](assets/system-flow.png)
 
-## Preliminary Abstraction of Possible Classes
+## Technical Architecture & Filter Thresholds
 
-The following classes represent a preliminary abstraction of the main objects and components that could be part of the system. Since the project is currently in an initial design phase, their attributes, methods and relationships may change during development.
-
-Most musical data will be obtained through external services, such as the Spotify Web API or LastFM API. The structures received from these services could be transformed into objects within our own system, allowing the application to work only with the information required for its operation.
-
-### Class: Track
-
-**Responsibility:**  
-Represents a song within the system.
-
-The class will store only the information about a song that is relevant for search and discovery functions.
-
-**Attributes:**
-
-- id
-- title
-- artist
-- popularity
-- previewUrl
-
-**Methods:**
-
-- getId()
-- getTitle()
-- getArtist()
-- getPopularity()
-- getCoverImage()
-- getPreviewUrl()
-
-### Class: Artist
-
-**Responsibility:**  
-Represents an artist and the musical information associated with them that can be used during the discovery process.
-
-**Attributes:**
-
-- id
-- name
-- genres
-
-**Methods:**
-
-- getId()
-- getName()
-- getGenres()
-
-### Class: SpotifyAPIClient
-
-**Responsibility:**  
-Manages communication between the application and the Spotify Web API.
-
-This class acts as an intermediary between the services provided by Spotify and the rest of the system.
-
-**Methods:**
-
-- authenticate()
-- searchTrack()
-- getArtistInformation()
-- getArtistGenres()
-
-Depending on the evolution of the project, additional methods may be added or modified according to the information that can actually be obtained through external APIs.
-
-### Class: DiscoveryEngine
-
-**Responsibility:**  
-Manages the main logic of the music discovery process.
-
-This class will use the information obtained from the reference song and other available sources to generate recommendations. The process may include both songs similar to the reference and songs obtained through the exploration of genres, subgenres, artists and other musical relationships.
-
-**Methods:**
-
-- generateRecommendations()
-- generateDiscoveryPath()
-
-Its function will not be limited to finding similar songs, but rather determining possible exploration paths that allow the user's musical catalog to progressively expand.
-
-The Spotify Web API will initially be considered a source of musical information. The discovery and recommendation logic of the project will remain separated from communication with that API through SpotifyAPIClient.
-
+1. **Modular API Architecture (RNF-05):** External services are isolated inside dedicated classes (`SpotifyAPIClient` for core catalog/recommendations; `MusicBrainzAPIClient` as a secondary tag/subgenre enrichment fallback).
+2. **Adaptive Popularity Filter Thresholds (RF-07):**
+   - **Mainstream Reference ($\text{Popularity} > 70$):** Target range $[25, 65]$ to avoid overly commercial hits.
+   - **Mid-Tier Reference ($30 \le \text{Popularity} \le 70$):** Target range $[\max(15, P - 20), \min(75, P + 15)]$.
+   - **Underground Reference ($\text{Popularity} < 30$):** Target range $[10, 50]$ to ensure active listeners.
 
 ## UML Class Diagram
 
-The following diagram illustrates the relationships and structure of the preliminary classes defined above.
+The following diagram illustrates the updated class structures and relationships for the second delivery, incorporating modular APIs, error handling, and extended requirements.
 
 ```mermaid
 classDiagram
     class Track {
         - String id
         - String title
-        - String previewUrl
-        - String coverImage
-        - int popularity
         - Artist artist
+        - List~String~ genres
+        - int popularity
+        - String previewUrl
+        - String playerUrl
+        - String coverImage
         + getId() String
         + getTitle() String
-        + getPreviewUrl() String
-        + getCoverImage() String
-        + getPopularity() int
         + getArtist() Artist
+        + getGenres() List~String~
+        + getPopularity() int
+        + getPreviewUrl() String
+        + getPlayerUrl() String
+        + getCoverImage() String
     }
 
     class Artist {
@@ -170,23 +128,39 @@ classDiagram
         + getGenres() List~String~
     }
 
+    class APIClientException {
+        - boolean retryable
+        + isRetryable() boolean
+    }
+
     class SpotifyAPIClient {
         - String clientId
         - String clientSecret
         - String accessToken
         + authenticate() void
-        + searchTrack(String query) Track
-        + getArtistInformation(String artistId) Artist
-        + getArtistGenres(String artistId) List~String~
-        + fetchRecommendations(List~String~ seedGenres, int minPop, int maxPop) List~Track~
+        + searchTracks(String query, int limit) List~Track~
+        + getTrackMetadata(String trackId) Track
+        + getArtistMetadata(String artistId) Artist
+        + fetchRecommendations(List~String~ seedGenres, int minPop, int maxPop, int limit) List~Track~
+    }
+
+    class MusicBrainzAPIClient {
+        - String userAgent
+        + fetchTrackTags(String trackTitle, String artistName) List~String~
     }
 
     class DiscoveryEngine {
-        - SpotifyAPIClient api
+        - SpotifyAPIClient spotifyApi
+        - MusicBrainzAPIClient musicBrainzApi
+        - long lastKeystrokeTimestamp
+        + getPredictiveSuggestions(String partialText) List~Track~
+        + searchMatches(String query) List~Track~
         + generateRecommendations(Track referenceTrack) List~Track~
-        + generateDiscoveryPath(String sourceTrackName) List~Track~
     }
 
     Track --> Artist : contains
-    DiscoveryEngine --> SpotifyAPIClient : uses
+    DiscoveryEngine --> SpotifyAPIClient : uses (RNF-05)
+    DiscoveryEngine --> MusicBrainzAPIClient : uses (RNF-05)
+    SpotifyAPIClient ..> APIClientException : throws (RF-11 / RNF-02)
+    MusicBrainzAPIClient ..> APIClientException : throws (RF-11 / RNF-02)
 ```
