@@ -229,3 +229,7 @@ El modelo de datos soporta el RF-04 y RF-09 almacenando la información necesari
 
 ### Requerimientos sin cobertura
 El diseño actual omite por completo los componentes visuales e interactivos. El RF-01 (campo de búsqueda), RF-08 (mostrar lista de recomendaciones) y RF-10 (avisos de resultados vacíos y retorno al inicio) no tienen clases asignadas en el patrón MVC. El RNF-01 sobre tiempos de respuesta dependerá de la implementación de red y no se modela en el UML estático.
+
+## Interaction Flow and Interface Design
+
+[View AUDY's Interaction Flow, Original Sketches, and Interface Design](diseno/README.md)
