@@ -233,3 +233,86 @@ El diseño actual omite por completo los componentes visuales e interactivos. El
 ## Interaction Flow and Interface Design
 
 [View AUDY's Interaction Flow, Original Sketches, and Interface Design](diseno/README.md)
+
+# Bitácora del Sprint y Seguimiento
+
+**Duración del Sprint:** 1 Mes (4 Semanas)  
+**Equipo de Trabajo (6 integrantes):**
+1. Antochiw Flores Andrés
+2. Couoh Mis Guillermo Moises
+3. Gil Juárez Joshua Nabil
+4. Jiménez Hernandez Xicoténcatl
+5. Medina Uitz Eleazar
+6. Thibault Raphael Didier Alexandre
+
+---
+
+## Semana 1: Refinamiento de Requisitos y Diseño de Flujo
+
+**Fechas:** 06 de octubre al 10 de octubre  
+**Objetivo de la semana:** Actualizar los requerimientos funcionales y no funcionales y comenzar el diseño de interfaces y casos de uso.
+
+| Actividad | Responsable(s) | Estado | Resultados / Enlaces |
+| :--- | :--- | :--- | :--- |
+| Refinar RF y agregar RNF. | Guillermo | Completado | Enlace al PDF de RF y RNF |
+| Diseñar flujo en Figma (búsqueda predictiva, errores). | Joshua | Completado | Enlace a Figma |
+| Redactar historias de usuario basadas en RF-01 al RF-11. | Eleazar | Completado | Enlace al doc de Historias |
+| Crear el formato de bitácora. | Xicoténcatl | Completado | Enlace al Tablero GitHub |
+
+* **Reuniones y Acuerdos:**
+  * Reunión de inicio (martes): Se acordó fusionar antiguos RF-4/RF-5 en el nuevo RF-06.
+  * Se decidió usar SpotifyAPI y MusicBrainzAPI.
+* **Problemas Encontrados:** Dudas sobre cómo medir el tiempo de respuesta del predictivo (RNF-04). Se resolvió investigando sobre `lastKeystrokeTimestamp`.
+
+---
+
+## Semana 2: Arquitectura y Modelado UML
+
+**Fechas:** 12 de octubre al 17 de octubre  
+**Objetivo de la semana:** Consolidar la arquitectura MVC parcial y refinar el diagrama de clases.
+
+| Actividad | Responsable(s) | Estado | Resultados / Enlaces |
+| :--- | :--- | :--- | :--- |
+| Definir clientes de API y manejo de excepciones. | Alexandre, Andrés | Completado | Enlace a rama de código |
+| Crear diagrama de clases UML (Mermaid). | Alexandre | Completado | Enlace al archivo MD del UML |
+| Finalizar mockups de la vista de resultados. | Joshua | Completado | Enlace a Figma |
+| Organizar rama de segunda entrega y el índice MD. | Joshua, Xicoténcatl | En progreso | Enlace al repositorio |
+
+* **Reuniones y Acuerdos:**
+  * Reunión de sincronización (jueves): Se acordó la estructura de `APIClientException` para manejar errores (RF-11).
+* **Problemas Encontrados:** El UML original no contemplaba el patrón MVC para la interfaz (faltan Controladores y Vistas). Queda pendiente para revisión.
+
+---
+
+## Semana 3: Vinculación y Organización de Repositorio
+
+**Fechas:** 20 de octubre al 24 de octubre  
+**Objetivo de la semana:** Mapear requisitos contra el diseño y preparar las evidencias para la entrega final.
+
+| Actividad | Responsable(s) | Estado | Resultados / Enlaces |
+| :--- | :--- | :--- | :--- |
+| Crear tabla de trazabilidad RF/RNF vs Clases. | Xicoténcatl | Completado | Enlace al archivo cobertura.md |
+| Corregir el UML agregando clases de Vista y Controlador. | Alexandre, Andrés | En progreso | Enlace a commit/rama |
+| Compilar evidencias y verificar enlaces del repositorio. | Joshua, Guillermo | Completado | Enlace al Readme |
+
+* **Reuniones y Acuerdos:**
+  * Revisión cruzada (viernes): El integrante asignado de la creación de la tabla de trazabilidad de RF y RNF (Xicoténcatl) detectó que los requisitos de UI (RF-01, RF-08, RF-10) no tienen clases en el UML. Se devolvió a los integrantes encargados de corregir el UML (Alexandre y Andrés).
+* **Problemas Encontrados:** Conflictos de fusión en GitHub al integrar los documentos de requisitos y la bitácora. Se resolvieron en llamada.
+
+---
+
+## Semana 4: Presentación y Cierre
+
+**Fechas:** 26 de octubre al 31 de octubre  
+**Objetivo de la semana:** Medir la contribución y preparar el guion y ensayo de la presentación de 5 minutos.
+
+| Actividad | Responsable(s) | Estado | Resultados / Enlaces |
+| :--- | :--- | :--- | :--- |
+| Acordar método de métrica y asignar porcentajes. | Todos | Pendiente | Enlace a matriz de evaluación |
+| Redactar guion de la presentación resumiendo cambios. | Andrés, Eleazar | Pendiente | Enlace a diapositivas/guion |
+| Ensayo general cronometrado. | Andrés, Eleazar | Pendiente | N/A |
+| Revisión final del índice Markdown y entrega. | Guillermo, Joshua, Xicoténcatl, Eleazar | Pendiente | Enlace al Release de GitHub |
+
+* **Reuniones y Acuerdos:**
+  * Planificación de cierre (viernes): Se dividieron los temas de la presentación (Requisitos, Arquitectura, Limitaciones).
+* **Problemas Encontrados:** Ajustar el tiempo de la presentación a exactamente 5 minutos requerirá varios ensayos.
