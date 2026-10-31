@@ -311,7 +311,7 @@ El diseño actual omite por completo los componentes visuales e interactivos. El
 | Acordar método de métrica y asignar porcentajes. | Todos | Pendiente | Enlace a matriz de evaluación |
 | Redactar guion de la presentación resumiendo cambios. | Andrés, Eleazar | Pendiente | Enlace a diapositivas/guion |
 | Ensayo general cronometrado. | Andrés, Eleazar | Pendiente | N/A |
-| Revisión final del índice Markdown y entrega. | Guillermo, Joshua, Xicoténcatl, Eleazar | Pendiente | Enlace al Release de GitHub |
+| Revisión final del índice Markdown y entrega. | Todos | Pendiente | Enlace al Release de GitHub |
 
 * **Reuniones y Acuerdos:**
   * Planificación de cierre (viernes): Se dividieron los temas de la presentación (Requisitos, Arquitectura, Limitaciones).
